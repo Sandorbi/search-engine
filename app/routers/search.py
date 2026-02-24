@@ -1,8 +1,7 @@
 from fastapi import APIRouter, HTTPException, Query, Request
 
-from app.config import DEFAULT_RESULT_LIMIT, MAX_RESULT_LIMIT, MIN_RESULT_LIMIT
+from app.constants import DEFAULT_RESULT_LIMIT, MAX_RESULT_LIMIT, MIN_RESULT_LIMIT
 from app.models.responses import SearchResponse, SearchResultItem
-
 
 router = APIRouter(tags=["search"])
 

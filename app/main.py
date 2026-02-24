@@ -1,17 +1,17 @@
 import os
+from collections.abc import AsyncGenerator
 from contextlib import asynccontextmanager
 from pathlib import Path
-from typing import AsyncGenerator
 
 from fastapi import FastAPI
 
 from app.routers.search import router as search_router
 from app.services.product_service import load_products
-from app.services.search_service import BM25Index
+from app.services.search_service import HybridSearchIndex
 
 
 @asynccontextmanager
-async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
+async def lifespan(app: FastAPI) -> AsyncGenerator[None]:
     products_path_raw = os.getenv("PRODUCTS_PATH", "app/data/products.json")
     products_path = Path(products_path_raw)
     if not products_path.exists():
@@ -21,7 +21,7 @@ async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
         )
 
     products = load_products(products_path)
-    app.state.search_index = BM25Index(products)
+    app.state.search_index = HybridSearchIndex(products)
 
     yield
 

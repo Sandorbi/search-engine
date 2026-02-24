@@ -2,5 +2,10 @@ fastapi
 uvicorn
 pydantic
 rank-bm25
-pytest
+sentence-transformers
+scikit-learn
+numpy
 httpx
+pytest
+ruff
+mypy
