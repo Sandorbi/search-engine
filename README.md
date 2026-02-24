@@ -19,13 +19,14 @@ pip install -r requirements.txt
 ```
 
 ### 2. Set dataset path
+(This is already set to this path by default. skip this or set your required path)
 
 ```bash
 $env:PRODUCTS_PATH="app/data/products.json"
 ```
 
 ### 3. Start server
-
+(First startup takes a little time)
 ```bash
 uvicorn app.main:app --reload
 ```
