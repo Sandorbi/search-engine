@@ -1,0 +1,12 @@
+[project]
+name = "search-engine"
+version = "1.0.0"
+description = "Product search engine with BM25 ranking"
+requires-python = ">=3.13"
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

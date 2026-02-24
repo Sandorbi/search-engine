@@ -3,6 +3,8 @@ from typing import Any, Dict, List
 
 from rank_bm25 import BM25Okapi
 
+from app.constants import BRAND_FIELD_WEIGHT, DESCRIPTION_FIELD_WEIGHT, NAME_FIELD_WEIGHT
+
 
 TOKEN_RE = re.compile(r"[a-z0-9]+")
 
@@ -24,9 +26,9 @@ class BM25Index:
 
     def __init__(self, products: List[Dict[str, Any]]):
         self.products = products
-        self.name_boost = 3.0
-        self.description_boost = 1.0
-        self.brand_boost = 0.5
+        self.name_boost = NAME_FIELD_WEIGHT
+        self.description_boost = DESCRIPTION_FIELD_WEIGHT
+        self.brand_boost = BRAND_FIELD_WEIGHT
 
         self._build_index()
 

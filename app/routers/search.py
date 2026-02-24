@@ -1,5 +1,11 @@
 from fastapi import APIRouter, HTTPException, Query, Request
 
+from app.constants import (
+    DEFAULT_RESULT_LIMIT,
+    MAX_RESULT_LIMIT,
+    MIN_RESULT_LIMIT,
+    SCORE_DECIMAL_PLACES,
+)
 from app.models.responses import SearchResponse, SearchResultItem
 
 
@@ -10,7 +16,12 @@ router = APIRouter(tags=["search"])
 def search_products(
     request: Request,
     q: str = Query(..., description="Search query"),
-    limit: int = Query(10, ge=1, le=50, description="How many results to return"),
+    limit: int = Query(
+        DEFAULT_RESULT_LIMIT,
+        ge=MIN_RESULT_LIMIT,
+        le=MAX_RESULT_LIMIT,
+        description="How many results to return",
+    ),
 ) -> SearchResponse:
     if not q.strip():
         raise HTTPException(status_code=400, detail="Search query cannot be empty.")
@@ -18,7 +29,7 @@ def search_products(
     ranked_results = request.app.state.search_index.search(q, limit=limit)
 
     results = [
-        SearchResultItem(score=round(score, 4), product=product) 
+        SearchResultItem(score=round(score, SCORE_DECIMAL_PLACES), product=product)
         for score, product in ranked_results
     ]
 
