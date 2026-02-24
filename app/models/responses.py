@@ -1,14 +1,14 @@
-from typing import Any, Dict, List
+from typing import Any
 
 from pydantic import BaseModel, Field
 
 
 class SearchResultItem(BaseModel):
-    product: Dict[str, Any] = Field(..., description="Product data")
+    product: dict[str, Any] = Field(..., description="Product data")
 
 
 class SearchResponse(BaseModel):
     query: str = Field(..., description="Original query")
     limit: int = Field(..., description="Requested number of results")
     count: int = Field(..., description="Actual number of results returned")
-    results: List[SearchResultItem] = Field(..., description="Ranked search results")
+    results: list[SearchResultItem] = Field(..., description="Ranked search results")

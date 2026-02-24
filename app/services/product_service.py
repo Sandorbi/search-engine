@@ -1,9 +1,9 @@
 import json
 from pathlib import Path
-from typing import Any, Dict, List
+from typing import Any
 
 
-def load_products(products_path: Path) -> List[Dict[str, Any]]:
+def load_products(products_path: Path) -> list[dict[str, Any]]:
     """Load products from JSON file."""
     with products_path.open("r", encoding="utf-8") as f:
         data = json.load(f)
