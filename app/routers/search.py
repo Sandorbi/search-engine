@@ -1,11 +1,6 @@
 from fastapi import APIRouter, HTTPException, Query, Request
 
-from app.constants import (
-    DEFAULT_RESULT_LIMIT,
-    MAX_RESULT_LIMIT,
-    MIN_RESULT_LIMIT,
-    SCORE_DECIMAL_PLACES,
-)
+from app.config import DEFAULT_RESULT_LIMIT, MAX_RESULT_LIMIT, MIN_RESULT_LIMIT
 from app.models.responses import SearchResponse, SearchResultItem
 
 
@@ -28,10 +23,7 @@ def search_products(
 
     ranked_results = request.app.state.search_index.search(q, limit=limit)
 
-    results = [
-        SearchResultItem(score=round(score, SCORE_DECIMAL_PLACES), product=product)
-        for score, product in ranked_results
-    ]
+    results = [SearchResultItem(product=product) for _score, product in ranked_results]
 
     return SearchResponse(
         query=q,

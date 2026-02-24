@@ -4,7 +4,6 @@ from pydantic import BaseModel, Field
 
 
 class SearchResultItem(BaseModel):
-    score: float = Field(..., description="Relevance score")
     product: Dict[str, Any] = Field(..., description="Product data")
 
 
